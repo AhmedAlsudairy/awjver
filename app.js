@@ -1,7 +1,7 @@
 // Imports
 import express from "express";
 import bodyParser from "body-parser";
-import { dirname } from "path";
+import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -10,13 +10,13 @@ const app = express();
 const port = 3000;
 
 // Static Files
-app.use(express.static('public'));
+app.use(express.static(join(__dirname, 'public')));
 
 // Set View's
-app.set('views', './views');
+app.set('views', join(__dirname, 'public/views'));
 app.set('view engine', 'ejs');
 
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Navigation
 app.get('/', (req, res) => {
@@ -30,9 +30,6 @@ app.get('/home', (req, res) => {
 });
 app.get('/register', (req, res) => {
     res.render("register.ejs");
-});
-app.get('/home', (req, res) => {
-    res.render("home.ejs");
 });
 app.get('/institution', (req, res) => {
     res.render("institution.ejs");
